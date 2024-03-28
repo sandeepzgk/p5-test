@@ -34,17 +34,17 @@ jobs:
           path: './build'
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          deploy_url: ${{ steps.set-url.outputs.deploy_url }}
 
-      - name: Set deploy URL
-        id: set-url
+      - name: Update GitHub Pages URL
+        if: github.ref != 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "deploy_url=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_OUTPUT
-          else
-            branch_name=$(echo "${{ github.ref }}" | sed -e "s/refs\/heads\///g")
-            echo "deploy_url=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/$branch_name/" >> $GITHUB_OUTPUT
-          fi
+          branch_name=$(echo "${{ github.ref }}" | sed -e "s/refs\/heads\///g")
+          curl -X PATCH \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{"cname": "${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ env.branch_name }}"}' \
+            "https://api.github.com/repos/${{ github.repository }}/pages"
