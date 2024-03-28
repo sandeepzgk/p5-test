@@ -37,7 +37,7 @@ export default {
     // Resolve bare module specifiers to relative paths
     resolve(),
     // Minify HTML template literals
-    minifyHTML.default(),
+    //minifyHTML.default(),
     // Minify JS
     terser({
       ecma: 2021,
