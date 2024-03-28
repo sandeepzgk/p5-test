@@ -7,6 +7,8 @@ import minifyHTML from 'rollup-plugin-minify-html-literals';
 import summary from 'rollup-plugin-summary';
 import json from '@rollup/plugin-json';
 import image from '@rollup/plugin-image';
+import serve from 'rollup-plugin-serve';
+import livereload from 'rollup-plugin-livereload';
 
 export default {
   // input: '*.html',
@@ -17,6 +19,12 @@ export default {
     // html({
     //   input: 'index.html',
     // }),
+    serve({
+      open: true,
+      contentBase: 'build',
+      port: 8080,
+    }),
+    livereload('build'),
     html({
       input: '*.html',
     }),
@@ -28,7 +36,8 @@ export default {
     }),
     // Resolve bare module specifiers to relative paths
     resolve(),
-
+    // Minify HTML template literals
+    minifyHTML.default(),
     // Minify JS
     terser({
       ecma: 2021,
