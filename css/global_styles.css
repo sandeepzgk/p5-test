@@ -1,0 +1,26 @@
+/* global_styles.css */
+
+/* Google Material Design Theming variables */
+:root {
+  --md-filled-icon-button-container-width: 24px;
+  --md-filled-icon-button-container-height: 24px;
+  --md-fab-icon-size: 36px;
+  --md-fab-label-text-font: 'Montserrat', system-ui, sans-serif, serif;
+  --md-font-size: 16px;
+  --text-size: 0.875rem;
+  --md-sys-typescale-label-large-line-height: 3.25rem;
+  --md-primary-tab-icon-size: none;
+}
+
+/* Other global styles */
+
+/* Body styles */
+/* body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+ */
+/* Add more global styles here */

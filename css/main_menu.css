@@ -1,0 +1,171 @@
+/* main_menu.css */
+
+/* Google Material Design Theming variables */
+
+/* Centering the main menu */
+body {
+  display: flex;
+  justify-content: center;
+  font-family: var(--md-fab-label-text-font);
+  font-size: var(--md-font-size);
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; /* Adjust padding to match the settings menu */
+  width: 100%; /* Set width to 100% */
+  box-sizing: border-box; /* Include padding in width calculation */
+  background-color: var(--md-sys-color-surface-container-high, #e8def8);
+  border-radius: 1rem; /* Match border-radius */
+  /* position: relative; Add position relative for absolute positioning */
+  position: absolute; /* Change position to absolute */
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0; /* Remove any margin */
+  max-width: 90%; /* Set maximum width to 90% of the viewport */
+  max-height: 90%; /* Set maximum height to 90% of the viewport */
+}
+
+.main_menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; /* This makes the div take the full height of the viewport */
+  flex-direction: column; /* Always keep buttons vertical */
+  /* flex-wrap: wrap; Allow items to wrap */
+}
+
+.main_menu md-fab{
+  margin: 10px;
+  --_label-text-size: var(--text-size);
+}
+
+/* Additional styling for the info dialog content */
+.info-content {
+  font-family: var(--md-fab-label-text-font);
+  position: fixed; /* Change to fixed for dialog behavior */
+  display: none;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  z-index: 999;
+  top: 50%; /* Center the dialog vertically */
+  left: 50%; /* Center the dialog horizontally */
+  transform: translate(-50%, -50%);
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* Additional styling for the info dialog content */
+.info-dialog {
+  position: fixed; /* Change to fixed for dialog behavior */
+  display: none;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  z-index: 999;
+  top: 50%; /* Center the dialog vertically */
+  left: 50%; /* Center the dialog horizontally */
+  transform: translate(-50%, -50%);
+}
+
+.arrow_back,
+.arrow_forward{
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  display: none; /* Hide buttons by default */
+}
+
+.arrow_back:hover,
+.arrow_forward:hover,
+.close:hover {
+  background-color: #eee;
+}
+
+.info-content {
+  font-family: var(--md-fab-label-text-font);
+}
+
+/* Add a CSS class to style the table cells */
+.responsive-cell {
+  max-width: 150px; /* Adjust the maximum width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 5px;
+  font-size: 1rem; /* Adjust the font size as needed */
+}
+
+/* Add or ensure this exists in your CSS */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: 998; /* Ensure this is below the popup z-index */
+  display: none;
+}
+
+.overlay.active + .container .main_menu {
+  pointer-events: none;
+}
+
+/* This will disable pointer events (clicks) on the main menu when it has the 'disabled' class */
+.main_menu.disabled {
+  pointer-events: none;
+  opacity: 0.5; /* Optional: Reduce opacity to visually indicate it's disabled */
+}
+
+/* Media query for smaller screens like iPhones */
+@media screen and (max-width: 480px) {
+  .responsive-cell {
+    max-width: 100px; /* Adjust the maximum width for smaller screens */
+    padding: 3px; /* Adjust the padding for smaller screens */
+    font-size: 0.9rem; /* Adjust the font size for smaller screens */
+  }
+}
+
+/* Media query for even smaller screens like iPhone SE */
+@media screen and (max-width: 320px) {
+  .responsive-cell {
+    max-width: 80px; /* Adjust the maximum width for smaller screens */
+    padding: 2px; /* Adjust the padding for smaller screens */
+    font-size: 0.8rem; /* Adjust the font size for smaller screens */
+  }
+}
+
+/* Media query for landscape orientation (horizontal) */
+@media screen and (orientation: landscape) {
+  .container {
+    padding: 20px; /* Adjusted padding for landscape */
+  }
+
+  .main_menu md-fab {
+    flex-basis: auto; /* Reset flex-basis to allow natural button width */
+    max-width: 100%; /* Occupy full width */
+  }
+}

@@ -1,0 +1,178 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Use full viewport height */
+  background-color: white; /* Set background color to white */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--md-fab-label-text-font);
+  font-size: var(--md-font-size);
+}
+
+.target-container {
+  top: 60px;
+  left: 0;
+  width: calc(100% - 20px); /* Adjust width as needed */
+  height: calc(100% - 60px);
+  overflow: hidden;
+}
+
+.target {
+  /* Add styling for your targets here */
+  width: 50px;
+  height: 50px;
+  background-color: #ff0000; /* Set a background color for visibility */
+  margin: 5px; /* Adjust margin as needed */
+  display: inline-block; /* Make sure targets are displayed in a line */
+  cursor: pointer; /* Add pointer cursor for interaction */
+  position: relative; /* Position targets relative to their container */
+}
+
+.target:hover::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 4px solid black; /* Adjust thickness of the outline */
+  border-radius: inherit;
+  pointer-events: none; /* Ensure the outline doesn't interfere with clicking the target */
+}
+
+.next-target {
+  /* Define styles to visually highlight the next target */
+  border: 6px solid red; /* Example border to highlight */
+  pointer-events: none;
+}
+
+
+.top-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.top-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#pause-button {
+  position: absolute;
+  top: 10px; /* Adjust top position as needed */
+  right: 10px; /* Adjust right position as needed */
+  --md-filled-icon-button-container-width: 30px;
+  --md-filled-icon-button-container-height: 30px;
+}
+
+.popup-container {
+  font-family: var(--md-fab-label-text-font);
+  font-size: var(--md-font-size);
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.restart-button,
+#home-button {
+  margin: 10px;
+  --md-filled-icon-button-container-width: 35px;
+  --md-filled-icon-button-container-height: 35px;
+}
+
+.popup-buttons {
+  justify-content: space-between;
+  --md-filled-icon-button-container-width: 35px;
+  --md-filled-icon-button-container-height: 35px;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  display: none;
+}
+
+#encouragementMessage {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--md-fab-label-text-font);
+  font-size: var(--md-font-size);
+  color: var(--main-text-color);
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+#submit-button-container {
+  display: none; /* Initially hide the button */
+}
+
+@media screen and (max-width: 375px) and (max-height: 667px) and (orientation: portrait){
+
+  .target-container{
+    width: calc(100% - 60px);
+  }
+  
+}
+
+@media screen and (max-width: 414px) and (max-height: 896px) and (orientation: portrait){
+
+  .target-container{
+    width: calc(100% - 50px);
+  }
+  
+}
+
+@media screen and (max-width: 390px) and (max-height: 844px) and (orientation: portrait){
+
+  .target-container{
+    width: calc(100% - 70px);
+  }
+  
+}
+
+@media screen and (max-width: 430px) and (max-height: 932px) and (orientation: portrait)
+{
+  .target-container{
+    width: calc(100% - 40px);
+  }
+}
+
+@media screen and (max-width: 430px) and (max-height: 915px) and (orientation: portrait)
+{
+  .target-container{
+    width: calc(100% - 60px);
+  }
+}

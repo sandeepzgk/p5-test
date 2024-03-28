@@ -1,0 +1,67 @@
+/* leaderboard.css */
+  /* Apply background color to the leaderboard container */
+  .leaderboard-container {
+    margin: 0 auto; /* Center the container horizontally */
+    border-radius: 1rem; /* Increase border-radius for softer corners */
+    background-color: var(--md-sys-color-surface-container-high, #e8def8);
+    font-family: var(--md-fab-label-text-font);
+    max-width: 90%;
+    max-height: 90%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  
+  /* Style for the leaderboard title */
+  .leaderboard-title {
+    text-align: center; /* Center the title */
+    font-size: 2em; /* Adjust the font size as needed */
+    margin-bottom: 20px; /* Add some space below the title */
+  }
+  
+  /* Style for the leaderboard table */
+  .leaderboard-table {
+    width: 100%; /* Make the table fill the container */
+    border-collapse: collapse; /* Remove default spacing between table cells */
+    border-radius: 1rem; /* Increase border-radius for softer corners */
+  }
+  
+  /* Style for table header cells */
+  .leaderboard-table th {
+    text-align: left; /* Align text to the left within header cells */
+    padding: 10px; /* Add padding to header cells */
+    background-color: #fef7ff; /* Set background color for header cells */
+  }
+  
+  /* Style for table body cells */
+  .leaderboard-table td {
+    text-align: left; /* Align text to the left within body cells */
+    padding: 10px; /* Add padding to body cells */
+    border-bottom: 1px solid #fff; /* Add border-bottom for rows */
+  }
+  
+  /* Alternate row colors for better readability */
+  .leaderboard-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Set background color for even rows */
+  }
+  
+  /* Hover effect for rows */
+  .leaderboard-table tbody tr:hover {
+    background-color: #e0e0e0; /* Change background color on hover */
+  }
+
+  /* Close button */
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: var(--md-filled-icon-button-container-width, 36px);
+    height: var(--md-filled-icon-button-container-height, 36px);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  } 
+  

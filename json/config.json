@@ -1,0 +1,40 @@
+{
+  "visualSettings": {
+    "textFont": "Montserrat",
+    "textSize": 16
+  },
+
+  "trainerSettings":{
+    "totalNumTargets": 10,
+    "numTargetsOnScreen": 5,
+    "trainerType":{
+      "mode": "timed",
+      "time": 60
+    },
+    "encouragement": {
+      "display": false,
+      "messages": [
+       "You can do it!",
+        "Keep going!",
+        "You're doing great!"
+      ]
+    },
+    "targets":{
+      "targetMode": "Random",
+      "static": true,
+      "moving": false,
+      "size": 50,
+      "speed": 0,
+      "color": "Blue",
+      "shape": "Circle",
+      "image": "",
+      "fileName": ""
+    },
+    "scoring":{
+      "mode": "scored",
+      "successfulHit": 1,
+      "missedHit": 1,
+      "showNegative": false
+    }
+  }
+}

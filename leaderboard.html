@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/global_styles.css">
+    <link rel="stylesheet" href="css/leaderboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link id="favicon" rel="icon" href="https://cdn.glitch.com/a896fd72-865f-434a-b620-d564f4cf0b12%2Ffavicon.ico" type="image/x-icon">
+    <title>Leaderboard Page</title>
+</head>
+<body>
+    <div class="leaderboard-container">
+        <h1 class="leaderboard-title">Leaderboard</h1>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Score</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Time of Day (H:M:S)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows for leaderboard data will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <md-filled-icon-button class="close-button" aria-label="Close">
+            <md-icon>close</md-icon>
+        </md-filled-icon-button>
+    </div>
+
+    <script src="./bundle.js"></script>
+    <script src="./js/managers/storageManager.js"></script>
+    <script src="./js/managers/visualSettingsManager.js"></script>
+    <script src="./js/menus/leaderboard.js"></script>
+</body>
+</html>

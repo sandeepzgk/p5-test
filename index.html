@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/global_styles.css">
+    <link rel="stylesheet" href="css/main_menu.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link id="favicon" rel="icon" href="https://cdn.glitch.com/a896fd72-865f-434a-b620-d564f4cf0b12%2Ffavicon.ico" type="image/x-icon">
+    <title>Prototype</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="main_menu">
+        
+      <md-fab label="Start" aria-label="Start Prototype" size="large" >
+          <md-icon slot="icon">play_arrow</md-icon>
+      </md-fab>
+
+      <md-fab label="Settings" aria-label="Settings" size="medium">
+          <md-icon slot="icon">settings</md-icon>
+      </md-fab>
+
+      <md-fab label="Leaderboard" aria-label="Leaderboard" size="medium">
+          <md-icon slot="icon">leaderboard</md-icon>
+      </md-fab>
+
+      <md-fab label="Info" aria-label="Info" size="medium">
+          <md-icon slot="icon">info</md-icon>
+      </md-fab>
+
+      <md-fab label="Submit" aria-label="submit" size="medium" id="submit-button">
+          <md-icon slot="icon">send</md-icon>
+      </md-fab>
+
+    </div>
+  </div>
+
+  <div id="overlay" class="overlay"></div>
+
+  <div id="infoDialog" class="info-dialog">
+    <div class="info-content">
+      <!-- Content will be populated dynamically -->
+    </div>
+  </div>
+  
+  <script src="js/managers/storageManager.js"></script>
+  <script src="js/managers/URLParameterManager.js"></script>
+  <script src="js/managers/visualSettingsManager.js"></script>
+  <script src="js/managers/gameRunManager.js"></script>
+  <script type="module" src="./bundle.js"></script>
+  <script src="js/menus/main_menu.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <script>
+    async function compressJsonToZipBase64(jsonData) {
+      const zip = new JSZip();
+      zip.file("myData.json", JSON.stringify(jsonData));
+      const zipBlob = await zip.generateAsync({type:"blob"});
+
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+          const base64String = reader.result.replace(/^data:.+;base64,/, '');
+          //console.log(base64String); // Use the Base64 string as needed
+          resolve(base64String); // Resolve the promise with the base64String
+        };
+        reader.onerror = reject; // Properly handle errors
+        reader.readAsDataURL(zipBlob);
+      });
+    }
+
+
+    // Function to upload runs that haven't been uploaded yet
+    async function uploadNewRuns() {
+        const gameRuns = gameRunManager.getAllRuns();
+        const uploadedRuns = JSON.parse(localStorage.getItem('uploadedRuns')) || [];
+        let jsonData = [];
+
+        for (const run of gameRuns) {
+            if (!uploadedRuns.includes(run.runNumber)) {
+                jsonData.push(run);
+                uploadedRuns.push(run.runNumber);
+            }
+        }
+
+        const base64String = await compressJsonToZipBase64(jsonData);
+        localStorage.setItem('uploadedRuns', JSON.stringify(uploadedRuns));
+
+        // Determine chunk size
+        const chunkSize = 2900; // Adjust this value as needed
+
+        // Split the base64String into chunks
+        const chunks = [];
+        for (let i = 0; i < base64String.length; i += chunkSize) {
+            chunks.push(base64String.substring(i, i + chunkSize));
+        }
+
+        // Define batch size
+        const batchSize = 5; // Adjust this value as needed
+
+        // Iterate through chunks and open tabs in batches
+        for (let i = 0; i < chunks.length; i += batchSize) {
+            const batch = chunks.slice(i, i + batchSize);
+            const promises = batch.map((chunk, index) => {
+                const partId = i + index + 1; // Increment partId for each chunk
+                const url = `https://usc.qualtrics.com/jfe/form/SV_9pmGP7ajdK7gDs2?part_id=${partId}&json_data=${encodeURIComponent(chunk)}`;
+                return window.open(url, '_blank');
+            });
+
+            // Wait for all tabs in the batch to open
+            await Promise.all(promises);
+        }
+
+        // Hide the submit button after all chunks are sent
+        document.getElementById('submit-button').style.display = 'none';
+    }
+
+
+    // Example usage to upload new runs
+    document.getElementById('submit-button').addEventListener('click', () => {
+      uploadNewRuns();
+    });
+
+    // Check and toggle submit button visibility based on new runs
+    function toggleSubmitButtonVisibility() {
+      const gameRuns = gameRunManager.getAllRuns(); // Assuming this function exists and returns all game runs
+      const uploadedRuns = JSON.parse(localStorage.getItem('uploadedRuns')) || [];
+      const newRunsExist = gameRuns.some(run => !uploadedRuns.includes(run.runNumber));
+
+      const submitButtonContainer = document.getElementById('submit-button');
+      if (newRunsExist) {
+        submitButtonContainer.style.display = 'block';
+      } else {
+        submitButtonContainer.style.display = 'none';
+      }
+    }
+
+    toggleSubmitButtonVisibility();
+  </script>
+
+</body>
+</html>

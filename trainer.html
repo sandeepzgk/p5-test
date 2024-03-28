@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/global_styles.css">
+    <link rel="stylesheet" href="css/trainer.css">
+    <link rel="stylesheet" href="css/shapes.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link id="favicon" rel="icon" href="https://cdn.glitch.com/a896fd72-865f-434a-b620-d564f4cf0b12%2Ffavicon.ico" type="image/x-icon">
+    <title>Aim Trainer</title>
+</head>
+
+<body>
+    <span id="score" class="top-left">Score: 0</span>
+    <span id="timer" class="top-left" style="top: 40px;">Timer: 0s</span>
+    <md-filled-icon-button id="pause-button" class="top-right" aria-label="Pause">
+        <md-icon>pause</md-icon>
+    </md-filled-icon-button>
+
+    <div id="targetContainer" class="target-container"></div>
+    <div id="encouragementMessage" class="top-center"></div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="popup-container" id="popup-container">
+        <p id="pause-message" class="pause-message"></p>
+        <div class="popup-buttons">
+          <md-filled-icon-button id="home-button" aria-label="Return to Main Menu">
+            <md-icon>home</md-icon>
+          </md-filled-icon-button>
+      
+          <md-filled-icon-button id="restart-button" class="restart-button" aria-label="Restart">
+            <md-icon>restart_alt</md-icon>
+          </md-filled-icon-button>
+        </div>
+      
+        <md-filled-icon-button id="close-button" class="close-button" aria-label="Resume" class="close-button">
+          <md-icon>close</md-icon>
+        </md-filled-icon-button>
+    </div>
+
+    <div class="popup-container" id="end-game-container">
+      <p id="end-game-message" class="pause-message"></p>
+      <div id="end-game-info" class="end-game-info"></div>
+      <div class="popup-buttons" id="end-game-buttons">
+          <md-filled-icon-button id="end-game-home-button" aria-label="Return to Main Menu">
+              <md-icon>home</md-icon>
+          </md-filled-icon-button>
+        
+          <md-filled-icon-button id="end-game-restart-button" class="restart-button" aria-label="Restart">
+              <md-icon>restart_alt</md-icon>
+          </md-filled-icon-button>
+  
+          <md-filled-icon-button id="end-game-leaderboard-button" class="leaderboard-button" aria-label="Leaderboard">
+              <md-icon>leaderboard</md-icon>
+          </md-filled-icon-button>
+      </div>
+
+  </div>
+
+     <!-- Your scripts go here -->
+     <script src="./bundle.js"></script>
+     <script src="js/managers/storageManager.js"></script>
+     <script src="js/managers/fittsManager.js"></script>
+     <script src="js/managers/gameRunManager.js"></script>
+     <script src="js/managers/trainerSettingsManager.js"></script>
+     <script src="js/managers/visualSettingsManager.js"></script>
+     <script src="js/trainer/targetBuilder.js"></script>
+     <script src="js/managers/targetManager.js"></script>
+     <script src="js/trainer/score.js"></script>
+     <script src="js/trainer/timer.js"></script>
+     <script src="js/trainer/encouragement.js"></script>
+     <script src="js/menus/trainer.js"></script>
+
+</body>
+</html>

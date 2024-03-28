@@ -1,0 +1,576 @@
+/* Settings menu container */
+.settings-menu {
+  display: flex;
+  justify-content: space-between; /* Spread items horizontally */
+  padding-bottom: 100px; 
+  position: absolute; /* Change position to absolute */
+  top: 50%;
+  left: 50%; /* Position from left */
+  transform: translate(-50%, -50%);
+  width: 100%; /* Occupy full width */
+  height: 100%; /* Occupy full height */
+  margin: 0; /* Remove any margin */
+  padding: 1rem; /* Adjust padding to match */
+  background-color: var(--md-sys-color-surface-container-high, #e8def8);
+  border-radius: 1rem; /* Match border-radius */
+  max-width: 90%; /* Set maximum width to 90% of the viewport */
+  max-height: 90%; /* Set maximum height to 90% of the viewport */
+}
+
+/* Styles for tabs container */
+md-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 1rem;
+}
+
+md-primary-tab {
+  /* Customize tab appearance */
+  font-family: var(--md-fab-label-text-font);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left;
+  border-radius: 1rem;
+  --_container-shape: 40px;
+  --_label-text-size: var(--text-size);
+  position: relative;
+}
+
+md-primary-tab.active {
+  /* Styles for active tab */
+  border-radius: 1rem; /* Rounded corners */
+  --_container-color: #fff;
+  --_label-text-color: none;
+  --_icon-color: none;
+  background-color: #fff; /* Add background color to the active tab */
+  position: relative; /* Position relative for pseudo-element */
+}
+
+/* Pseudo-element for active tab */
+md-primary-tab.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0px; /* Adjust as needed */
+  width: calc(100% + 50px); /* Adjust to cover the entire width of the tab */
+  height: calc(100% + 0px); /* Adjust to cover the entire height of the tab */
+  background-color: #fff; /* Match the background color of the active tab */
+  z-index: -1; /* Ensure the pseudo-element is behind the tab content */
+  border-radius: 1rem; /* Rounded corners */
+}
+
+/* Styles for tab panels */
+[role="tabpanel"] {
+  display: none;
+  font-family: var(--md-fab-label-text-font);
+  flex: 1;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: calc(100% - 120px);
+  z-index: 1;
+}
+
+[role="tabpanel"][active] {
+  /* Show active tab panel */
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 1rem; /* Rounded corners */
+  margin-top: 0; /* Remove margin between tab panels */
+  margin-left: 0; /* Remove left margin for active panel */
+}
+
+/* Reset and Save button styles */
+.reset-button {
+  position: absolute;
+  bottom: 28px;
+  width: fit-content;
+  --_label-text-size: var(--text-size);
+  left: 167px;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 7px;
+  width: var(--md-filled-icon-button-container-width, 36px);
+  height: var(--md-filled-icon-button-container-height, 36px);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Highlight active tab */
+.md-primary-tab.active {
+  background-color: #efefef;
+}
+
+.setting {
+  margin-bottom: 15px; /* Add space between setting elements */
+}
+
+.setting label {
+  display: block;
+  margin-bottom: 5px; /* Add some space below the labels */
+  font-size: var(--md-font-size);
+}
+
+/* Add this CSS to your stylesheet */
+.popup-container {
+  font-family: var(--md-fab-label-text-font);
+  font-size: var(--md-font-size);
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  z-index: 999;
+}
+
+.exit-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.cancel-button {
+  margin-right: 10px; /* Adjust the margin to add more space */
+  margin-bottom: 10px; /* Add margin at the bottom if needed */
+}
+
+.popup-button {
+  margin: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.scrollable-content {
+  height: calc(100% - 120px); /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
+#trainer-content {
+  padding: 10px; /* Add padding as needed */
+}
+
+#timed-button,
+#unlimited-time-button {
+    margin-right: 10px; /* Adjust the margin to your preference */
+}
+
+md-checkbox {
+  margin: max(0px,(23px - var(--_container-size))/2);
+}
+
+/* Add or ensure this exists in your CSS */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: 998; /* Ensure this is below the popup z-index */
+  display: none;
+}
+
+.overlay.active + .container .settings-menu {
+  pointer-events: none;
+}
+
+/* Small screens (e.g., mobile phones) */
+/* This only works for iPhone XR which is 414 x 896px VERTICALLY NOT HORIZONTALLY */
+/* same for iPhone 12 Pro and iPhone 14 Pro Max and Pixel 7 */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .settings-menu {
+    flex-direction: column;
+    padding: 10px;
+    overflow: unset;
+  }
+
+  md-tabs {
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    max-height: unset;
+    overflow-y: unset;
+    flex: initial; /* Reset flex property */
+  }
+
+  md-primary-tab{
+    padding: 0.5rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: none; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+
+  .reset-button {
+    width: 90%;
+    margin-top: 20px;
+    position: relative; /* Change position to relative */
+    margin-bottom: 15px; /* Same margin as tab content between tabs */
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+  }
+
+  [role="tabpanel"] {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  [role="tabpanel"][active] {
+    margin-left: 0;
+    margin-bottom: 15px;
+  }
+
+  .close-button{
+    top: 5px;
+  }
+}
+
+@media screen and (max-width: 375px) and (orientation: portrait) and (max-height: 667px)
+{
+
+    md-tabs {
+      justify-content: center;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      max-height: unset;
+      overflow-y: unset;
+      flex: initial;
+    }
+
+    md-primary-tab{
+      --_with-icon-and-label-text-container-height: unset;
+      padding: 0.5rem
+    }
+
+    md-primary-tab.active {
+      /* Styles for active tab */
+      --_container-color: #827f7f; /* Change container color for active tab */
+      background-color: #fff; /* Keep the background color of the active tab */
+      position: relative; /* Position relative for pseudo-element */
+    }
+  
+    /* Remove pseudo-element for active tab */
+    md-primary-tab.active::before {
+      display: none; /* Hide the pseudo-element */
+    }
+
+    .reset-button{
+      bottom: 0.5rem;
+    }
+
+}
+
+@media screen and (max-width: 667px) and (orientation: landscape)
+{
+    md-tabs{
+      gap: 0.5rem;
+    }
+
+    md-primary-tab{
+      padding: 0.2rem;
+    }
+
+    md-primary-tab.active {
+      /* Styles for active tab */
+      --_container-color: #827f7f; /* Change container color for active tab */
+      background-color: #fff; /* Keep the background color of the active tab */
+      position: relative; /* Position relative for pseudo-element */
+    }
+  
+    /* Remove pseudo-element for active tab */
+    md-primary-tab.active::before {
+      display: none; /* Hide the pseudo-element */
+    }
+
+    [role="tabpanel"] {
+      margin-left: 17px;
+      margin-right: 20px;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .reset-button{
+      bottom: 34px;
+      margin-left: -43px;
+    }
+}
+
+@media screen and (min-width: 896px) and (orientation: landscape) and (max-height: 414px)
+{
+  md-tabs{
+    gap: 0.6rem;
+  }
+
+  md-primary-tab{
+    padding: 0.2rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+
+  .reset-button{
+    margin-left: -41px;
+    margin-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 390px) and (orientation: portrait)
+{
+  md-primary-tab{
+    padding: 0.4rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+}
+
+@media screen and (min-width: 844px) and (orientation: landscape) and (max-height: 390px)
+{
+  md-primary-tab{
+    padding: 0.2rem;
+  }
+
+  md-tabs{
+    gap: 0.5rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+
+  [role="tabpanel"] {
+    margin-left: 17px;
+    margin-right: 20px;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+  
+  .reset-button{
+    margin-left: -38px;
+    margin-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 430px) and (orientation: portrait)
+{
+  md-primary-tab{
+    padding: 1rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+
+  .reset-button{
+    bottom: 0.5rem;
+    margin-left: -172px;
+    width: unset;
+  }
+}
+
+@media screen and (min-width: 932px) and (orientation: landscape) and (max-height: 430px)
+{
+  md-tabs{
+    gap: 0.6rem;
+  }
+
+  md-primary-tab{
+    padding: 0.3rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+
+  .reset-button{
+    margin-left: -34px;
+    margin-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 360px) and (orientation: portrait) and (max-height: 740px)
+{
+  md-tabs{
+    margin-top: 14px;
+    gap: 0.5rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+
+  .close-button{
+    top: 5px;
+  }
+}
+
+@media screen and (max-width: 740px) and (orientation: landscape) and (max-height: 360px)
+{
+  md-tabs{
+    gap: 0.5rem;
+  }
+
+  md-primary-tab{
+    padding: 0.13rem;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+
+  [role="tabpanel"] {
+    margin-left: 17px;
+    margin-right: 20px;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .reset-button{
+    margin-left: -43px;
+    margin-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 414px) and (orientation: portrait) and (max-height: 896px)
+{
+  .close-button{
+    top: 7px;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+}
+
+@media screen and (max-width: 390px) and (orientation: portrait) and (max-height: 844px)
+{
+  .reset-button{
+    margin-top: 4px;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+}
+
+@media screen and (max-width: 540px) and (orientation: portrait) and (max-height: 720px)
+{
+  .reset-button{
+    margin-top: 15px;
+    margin-left: -167px;
+    width: unset;
+    margin-bottom: -6px;
+  }
+
+  md-primary-tab.active {
+    /* Styles for active tab */
+    --_container-color: #827f7f; /* Change container color for active tab */
+    background-color: #fff; /* Keep the background color of the active tab */
+    position: relative; /* Position relative for pseudo-element */
+  }
+
+  /* Remove pseudo-element for active tab */
+  md-primary-tab.active::before {
+    display: none; /* Hide the pseudo-element */
+  }
+}
