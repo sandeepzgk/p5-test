@@ -138,6 +138,23 @@
     }
 
     toggleSubmitButtonVisibility();
+
+
+    fetch('build-number.html')
+      .then(response => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error('File not found');
+        }
+      })
+      .then(data => {
+        document.getElementById('build-number').innerHTML = data;
+      })
+      .catch(error => {
+        console.log('Error:', error);
+        document.getElementById('build-number').innerHTML = 'Build Number: Not Available';
+      });
   </script>
 
 </body>
