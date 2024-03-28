@@ -29,13 +29,20 @@ jobs:
           echo "<p>Build Number: ${{ github.run_number }}</p>" > ./build/build-number.html
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
+          name: build-files
           path: './build'
-          destination: '/${{ github.ref_name }}'
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-files
+          path: './${{ github.ref_name }}'
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          artifact_name: github-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: './${{ github.ref_name }}'
+          keep_files: true
