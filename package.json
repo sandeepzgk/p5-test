@@ -1,4 +1,12 @@
 {
+  "name": "the-gogo-project",
+  "version": "1.0.0",
+  "description": "Your project description",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "serve-prod": "npm run build && http-server build"
+  },
   "dependencies": {
     "@material/material-color-utilities": "^0.2.7",
     "@material/web": "^1.1.1"
@@ -10,8 +18,11 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@web/rollup-plugin-copy": "^0.5.1",
     "@web/rollup-plugin-html": "^2.1.2",
+    "http-server": "^14.1.1",
     "rollup": "^2.79.1",
+    "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-minify-html-literals": "^1.2.6",
+    "rollup-plugin-serve": "^1.1.1",
     "rollup-plugin-summary": "^2.0.0"
   }
 }
