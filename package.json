@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
+    "serve-dev": "rollup -c -w",
     "serve-prod": "npm run build && http-server build"
   },
   "dependencies": {
